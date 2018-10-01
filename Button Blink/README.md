@@ -1,18 +1,19 @@
-# Button Blink
-Now that you have looked at blinking the LED from some built in delay, but what if we wanted to control the state of the LED by a button? You may think "Why would I need a Microcontroller to perform the job of a switch?". And that is where you come in. The bare minimum for this part of the lab is to essentially replicate a switch with your development board.
+Lab 1 -- Button Blink
+Julia K.
 
-# YOU NEED TO CREATE THE FOLLOWING FOLDERS
-* MSP430G2553
-* MSP(FILL IN THE PROCESSOR YOU ARE USING)
+Button Blink allows the user to control the state of an LED with a button.
 
-## README
-Remember to replace this README with your README once you are ready to submit. I would recommend either making a copy of this file or taking a screen shot. There might be a copy of all of these README's in a folder on the top level depending on the exercise. Make sure you talk about how your button is configured (momentary or continuous. Normally open or closed. Does the button press indicate when the LED should be on or off.)
+Processors Used:
+- MSP430G2553
+- MSP430F5529
 
-## Extra Work
-What can we do to make this a little bit more worthy of needing a microcontroller.
+Functionality
+The program begins by initializing the pins used for the LED output, 
+in this case, LED1 uses the same port and pin number (P1.0) for both MSPs used. 
+Then, the pull-up/pull-down resistor was enabled for the switch pin, and configured to be a pull-up resistor.
 
-### Button Based Speed Control
-Much like the UART controlled speed, what if you could cycle between speeds based on a button press? The speed could progress through a cycle of "Off-Slow-Medium-Fast" looping back when you hit the end.
+MSP430F5529 uses P2.1 as the input to the button. MSP430G2553 uses P1.3 as the input to the button.
 
-### Color Change
-What if upon a button press, the LED which was blinking changed. Some of the development boards contain two LEDs, so you could swap between a Red and a Green LED.
+The program then enters an infinite loop, which contains an if-statement to check the state of the button (if it is pressed or not)
+When the button is not pressed, LED1 is off.
+When the button is pressed, LED1 is on.

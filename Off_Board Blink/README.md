@@ -1,25 +1,32 @@
-# Off Board Blink
-Now that we have the whole blinking LED out of the way, why don't we try making things a little more convenient by taking the G2553 off the development board and into a breadboard. In addition to the software, your README needs to also contain a picture of your circuit with at least 2 LEDs blinking all on a breadboard and without a development board. This means that you will need:
-* Proper power being supplied to the processor
-* Proper Reset Circuitry
-* Proper Bypass and Bulk Capacitors as needed
+Lab 1 -- Offboard Blink
+Julia K.
 
-Please be advised that you can easily damage or destroy one of the pins on the MSP430 by applying the wrong voltage or attempting to draw too much current from it. Really check your design before you power up to ensure you do not need request another processor.
+Offboard Blink allows the user to take the G2553 off the development board and into a breadboard. 
+It allows the user to press a button and light up two LEDs on the breadboard.
+In order to properly use Offboard Blink, proper power must be supplied to the processor, in this case, 3.3V. 
+Additionally, proper bypass and bulk capacitors, and proper reset circuitry was required. The gif link below shows the processor 
+along with the proper circuit components on the breadboard, with both LEDs powered on.
 
-## "Do I need to use a power supply to power this thing?"
-In the beginning part of the exercise, I would say that you can use the 5V/3.3V rails built into the development board by running wires. However, I would recommend looking into how to supply the processor from something like a battery or the power supply. You might want to look into different types of regulators. For example, your circuits may be powered off of a battery that is only 1.8V, or on a system that can only supply you with 13V.
+GIF: https://media.giphy.com/media/1BdrySPA6Sz7bhbcHB/giphy.gif
 
-## "What about the buttons and resistors and LEDS?"
-You remember those parts bins in the back of the teaching labs? They contain most everything you will need to do this portion of the lab. You should really make a effort to try and replicate what is on those development boards on the breadboard so you can begin to see what is needed to design with a microcontroller. Mess around with different color LEDS and see if they behave the same as the simple Red LEDs.
+Processors Used:
+- MSP430G2553
 
-# YOU NEED TO CREATE THE FOLLOWING FOLDER
-* MSP430G2553
+Functionality
+The program begins by initializing the pins used for the LED1 and LED2 output, 
+LED1 uses P1.0, and LED2 uses P1.6. 
 
-## Extra Work
-Once you get to this point, you are pretty much set in terms of GPIO mastery getting the LEDs to blink, but there are some more exploratory tasks that you can do.
+Then, the pull-up/pull-down resistor was enabled for the switch pin, and configured to be a pull-up resistor.
 
-### Off-Board Programming
-Do we need to keep re-inserting the MSP into the development board to program it, or is there some way to keep the chip in the circuit? For starters, try to connect the header which connects the debugger and emulator (that parts that is really dense in parts) to your chip on your board. You will need to look at the datasheets for the MSP430G2553 and the Launchpad itself to see where and how to connect to the programmer. Next, you should really look at using the JTAG connector that is also available on your board.
+MSP430G2553 uses P1.3 as the input to the switch pin, or button.
 
-### UART/Button Control
-Remember that stuff you did a few parts ago? Can you actually get all of that working again off of the development board? Can you control which lights are on, the speed they blink at, etc.
+The program then enters an infinite loop, which contains an if-statement to check the state of the button (if it is pressed or not)
+When the button is not pressed, LED1 and LED2 are off.
+When the button is pressed, LED1 and LED2 are on.
+
+Resistors were placed in series (2 1k per LED in parallel, to give ~500 ohms per LED) with the LEDs to limit current through the LEDs. 
+Assuming LED voltage is ~2V, and it is being driven with 3.3V, the the voltage across a resistor would be 1.3V Using 500ohms as the equivalent resistance, approximately 2.6mA run through the LEDs. 
+
+For the bypass circuitry, a 10mF and 100nF in parallel between VCC and GND.
+
+For the reset circuitry, a 47k pull-up resistor to VCC and a 1nF to GND were placed on the reset pin.
